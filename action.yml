@@ -39,6 +39,7 @@ runs:
     - name: Validate Inputs
       shell: bash
       run: |
+        echo "Validating inputs..."
         valid_tracks=("internal" "alpha" "beta" "production" "rollout")
         valid_statuses=("draft" "completed" "halted" "inProgress")
         aab_file_path="${{ inputs.aab_file_path }}"
@@ -63,16 +64,19 @@ runs:
     - name: Install Google API Client Libraries
       shell: bash
       run: |
+        echo "Installing required Python packages..."
         pip install --upgrade google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client
 
     - name: Decode Service Account JSON and Save
       shell: bash
       run: |
+        echo "Decoding service account JSON..."
         echo "${{ inputs.service_account_json }}" | base64 --decode > service_account.json
 
     - name: Upload .aab to Google Play Store
       shell: python
       run: |
+        echo "Uploading .aab to Google Play Store..."
         from google.oauth2.service_account import Credentials
         from googleapiclient.discovery import build
         from googleapiclient.http import MediaFileUpload
@@ -128,4 +132,5 @@ runs:
     - name: Remove Service Account JSON
       shell: bash
       run: |
+        echo "Removing service account JSON file..."
         rm -f service_account.json
