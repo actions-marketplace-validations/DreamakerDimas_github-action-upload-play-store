@@ -76,7 +76,6 @@ runs:
     - name: Upload .aab to Google Play Store
       shell: python
       run: |
-        echo "Uploading .aab to Google Play Store..."
         from google.oauth2.service_account import Credentials
         from googleapiclient.discovery import build
         from googleapiclient.http import MediaFileUpload
